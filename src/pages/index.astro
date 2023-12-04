@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Services from '../components/sections/Services.astro';
+import AboutUs from '../components/sections/AboutUs.astro';
+import Features from '../components/sections/Features.astro';
+import CTA from '../components/sections/CTA.astro';
+import Brands from '../components/sections/Brands.astro';
+---
+
+<Layout title="Experto en prestashop" description="Vulnerabilidades, diseño, actualización, modulos... soporte experto de prestashop">
+	<main class="flex flex-col gap-y-20 md:gap-y-32 overflow-hidden">
+		<Hero/>
+		<!-- <Brands/> -->
+		<Services/>
+		<AboutUs/>
+		<Features/>
+		<CTA 
+			titulo="¿Necesitas ayuda con tu Prestashop?" 
+			descripcion="Tienes dudas? Necesitas ayuda? o una simple consulta pincha al enlacete donde tengo un formulario y te contestare lo antes posible sin compromiso."
+			boton="Contactar"
+			link="/contacto"
+		/>
+	</main>
+</Layout>

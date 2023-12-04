@@ -1,0 +1,62 @@
+---
+import BtnLink from "../shared/BtnLink.astro";
+import Container from "../shared/Container.astro";
+import Paragraph from "../shared/Paragraph.astro";
+
+
+const { titulo= 'Titulo del CTA',
+  descripcion= 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente delectus architecto ullam earum',
+  enlace= '/',
+  texto_enlace='Contactar' } = Astro.props;
+---
+
+<section  id="cta" class="pb-20">
+  <Container>
+    <div
+      class="w-full relative py-8 md:py-10 px-6 md:px-8 rounded-2xl bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900"
+    >
+      <div class="absolute right-0 top-0 h-full w-full flex justify-end">
+        <div class="w-28 h-28 overflow-hidden flex rounded-xl relative blur-2xl">
+            <span
+              class="absolute w-16 h-16 -top-1 -right-1 bg-green-500 rounded-md rotate-45"
+            ></span>
+            <span
+              class="absolute w-16 h-16 -bottom-1 -right-1 bg-[#FCDC58] rounded-md rotate-45"
+            ></span>
+            <span
+              class="absolute w-16 h-16 -bottom-1 -left-1 bg-primary rounded-md rotate-45"
+            ></span>
+          </div>
+      </div>
+
+      <div class="absolute left-0 bottom-0 h-full w-full flex items-end">
+        <div class="w-28 h-28 overflow-hidden flex rounded-xl relative blur-2xl">
+            <span
+              class="absolute w-16 h-16 -top-1 -right-1 bg-green-500 rounded-md rotate-45"
+            ></span>
+            <span
+              class="absolute w-16 h-16 -bottom-1 -right-1 bg-[#FCDC58] rounded-md rotate-45"
+            ></span>
+            <span
+              class="absolute w-16 h-16 -bottom-1 -left-1 bg-primary rounded-md rotate-45"
+            ></span>
+          </div>
+      </div>
+      <div class="mx-auto text-center max-w-xl md:max-w-2xl relative">
+        <h2
+          class="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight
+          font-bold text-heading-1"
+        >
+          {titulo}
+        </h2>
+        <Paragraph className={"pt-10"}>
+          {descripcion}
+        </Paragraph>
+        <!-- div que centre el boton interior -->
+        <div class="flex justify-center pt-10">
+          <BtnLink text={texto_enlace} href={enlace} className="flex justify-center w-full sm:w-max" variant="primary"/>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
