@@ -2,12 +2,15 @@
 import BtnLink from "../shared/BtnLink.astro";
 import Container from "../shared/Container.astro";
 import Paragraph from "../shared/Paragraph.astro";
+import Hola from "../react/Hola";
+import Modal from "../react/Modal";
 
 
 const { titulo= 'Titulo del CTA',
   descripcion= 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente delectus architecto ullam earum',
-  enlace= '/',
-  texto_enlace='Contactar' } = Astro.props;
+  enlace= '',
+  texto_enlace='',
+  enlace_2, texto_enlace_2, modal=0 } = Astro.props;
 ---
 
 <section  id="cta" class="pb-20">
@@ -54,8 +57,14 @@ const { titulo= 'Titulo del CTA',
         </Paragraph>
         <!-- div que centre el boton interior -->
         <div class="flex justify-center pt-10">
-          <BtnLink text={texto_enlace} href={enlace} className="flex justify-center w-full sm:w-max" variant="primary"/>
+          {enlace &&<BtnLink text={texto_enlace} href={enlace} className="flex justify-center w-full sm:w-max" variant="primary"/>}
+          {enlace_2 && <BtnLink text={texto_enlace_2} href={enlace_2}  variant="primary"/>}
         </div>
+        {modal != 0 && <Modal client:load tipo={modal}/>}
+
+        
+        
+
       </div>
     </div>
   </Container>
