@@ -60,7 +60,7 @@ const { titulo= 'Titulo del CTA',
           {enlace &&<BtnLink text={texto_enlace} href={enlace} className="flex justify-center w-full sm:w-max" variant="primary"/>}
           {enlace_2 && <BtnLink text={texto_enlace_2} href={enlace_2}  variant="primary"/>}
         </div>
-        {modal != 0 && <Modal client:load tipo={modal}/>}
+        {modal != 0 && <Modal client:visible tipo={modal}/>}
 
         
         
