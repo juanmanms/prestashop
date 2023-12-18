@@ -10,7 +10,43 @@ export default (props) => {
 
   const handleSendEmail = () => {
     // Aquí va tu código para enviar el correo.
-    console.log(`Enviando correo a ${email}`);
+    console.log(`Registro del correo ${email}`);
+    //comprobacion de email
+    if (email == '') {
+      alert('El email no puede estar vacio');
+      return;
+    }
+    if (!email.includes('@')) {
+      alert('El email debe contener @');
+      return;
+    }
+    if (!email.includes('.')) {
+      alert('El email debe contener .');
+      return;
+    }
+    if (email.includes(' ')) {
+      alert('El email no puede contener espacios');
+      return;
+    }
+    
+    //hacer una llamada post añadiendo el email a la url "https://malierlite-api.onrender.com/subscribers/${email}"
+    fetch(`https://malierlite-api.onrender.com/subscribers/${email}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: email })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        setEmail('');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    
+
   };
   const modal1 =
     <Dialog.Root className="fixed inset-0 z-10 overflow-y-auto">
@@ -19,7 +55,6 @@ export default (props) => {
                       hover:after:opacity-100 hover:after:scale-[2.5]  ">
         <span className="text-white relative z-10">Contactar</span>
       </Dialog.Trigger>
-
       <Dialog.Portal>
         <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 w-full h-full bg-black opacity-40 z-15" />
         <Dialog.Content className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full max-w-lg mx-auto px-4 z-20 ">
@@ -46,10 +81,10 @@ export default (props) => {
               </Dialog.Title>
 
               <Dialog.Description className=" text-sm text-gray-600">
-                <p>
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
+
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat.
+
               </Dialog.Description>
               <fieldset className="Fieldset relative">
                 <svg
@@ -76,7 +111,7 @@ export default (props) => {
                 <button className=" w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2" onClick={handleSendEmail}>
                   Enviar
                 </button>
-                
+
               </Dialog.Close>
             </div>
           </div>
@@ -84,7 +119,6 @@ export default (props) => {
       </Dialog.Portal>
     </Dialog.Root>
     ;
-
 
   const modal2 =
     <Dialog.Root>
@@ -141,14 +175,17 @@ export default (props) => {
       </Dialog.Portal>
     </Dialog.Root>
 
-  const modal3 = 
-  <Dialog.Root className="fixed inset-0 z-10 overflow-y-auto">
-      <Dialog.Trigger className="w-32 py-2 ml-2 shadow-sm rounded-md bg-indigo-600 text-white mt-4 flex items-center justify-center">
-        Click me
+  const modal3 =
+    <Dialog.Root className="fixed inset-0 z-10 overflow-y-auto">
+      <Dialog.Trigger className=" px-6 py-3 rounded-full outline-none  overflow-hidden border duration-300 ease-linear
+                    after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 bg-primary border-transparent relative after:bg-[#172554] hover:border-[#172554]
+                      hover:after:opacity-100 hover:after:scale-[2.5]  ">
+        <span className="text-white relative z-10">Descargar</span>
       </Dialog.Trigger>
+
       <Dialog.Portal>
-        <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 w-full h-full bg-black opacity-40" />
-        <Dialog.Content className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full max-w-lg mx-auto px-4">
+        <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 w-full h-full bg-black opacity-40 z-15" />
+        <Dialog.Content className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full max-w-lg mx-auto px-4 z-20 ">
           <div className="bg-white rounded-md shadow-lg px-4 py-6">
             <div className="flex items-center justify-end">
               <Dialog.Close className="p-2 text-gray-400 rounded-md hover:bg-gray-100">
@@ -168,14 +205,11 @@ export default (props) => {
             </div>
             <div className="max-w-sm mx-auto space-y-3 text-center ">
               <Dialog.Title className="text-lg font-medium text-gray-800 ">
-                Sign up for our newsletter
+                ¿A que correo te mando la guía?
               </Dialog.Title>
 
               <Dialog.Description className=" text-sm text-gray-600">
-                <p>
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
+                .Tras muchos años de trabajo he creado una breve guía con los 9 puntos más relevantes para mejorar la mayoria de tiendas online. Te la envio gratis por email y despega tu tienda online.
               </Dialog.Description>
               <fieldset className="Fieldset relative">
                 <svg
@@ -193,25 +227,27 @@ export default (props) => {
                   />
                 </svg>
                 <input
+                  type="email" value={email} onChange={handleEmailChange}
                   className="w-full pl-12 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-                  placeholder="Enter your email"
+                  placeholder="info@email.es"
                 />
               </fieldset>
               <Dialog.Close asChild>
-                <button className=" w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2">
-                  Subscribe
+                <button className=" w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2" onClick={handleSendEmail}>
+                  Enviar
                 </button>
+
               </Dialog.Close>
             </div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
+    ;
 
   return (
     <>
       {tipo == 1 ? modal1 : tipo == 2 ? modal2 : tipo == 3 ? modal3 : null}
     </>
   );
-
 };

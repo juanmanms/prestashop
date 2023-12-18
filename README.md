@@ -8,7 +8,7 @@ A simple landing page for a digital agency
 
 ## Tools
 - TailwindCSS v3.3
-- AstroJs v3
+- AstroJs v4
 
 
 ## 🚀 Project Structure
