@@ -1,5 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default (props) => {
   //Crear propo de tipo de modal
@@ -8,26 +10,43 @@ export default (props) => {
 
   const handleEmailChange = (event) => setEmail(event.target.value);
 
+  const toaster = ({ text, type }) => {
+      switch (type) {
+        case 'success':
+          toast.success(text);
+          break;
+        case 'error':
+          toast.error(text);
+          break;
+        case 'warning':
+          toast.warning(text);
+          break;
+        default:
+          toast(text);
+          break;
+      }
+    };
+
+
   const handleSendEmail = () => {
-    // Aquí va tu código para enviar el correo.
-    console.log(`Registro del correo ${email}`);
     //comprobacion de email
     if (email == '') {
-      alert('El email no puede estar vacio');
+      toaster({ text: 'El email no puede estar vacio', type: 'error' });
       return;
     }
     if (!email.includes('@')) {
-      alert('El email debe contener @');
+      toaster({ text: 'El email debe contener @', type: 'error' });
       return;
     }
     if (!email.includes('.')) {
-      alert('El email debe contener .');
+      toaster({ text: 'El email debe contener .', type: 'error' });
       return;
     }
     if (email.includes(' ')) {
-      alert('El email no puede contener espacios');
+      toaster({ text: 'El email no puede contener espacios', type: 'error' });
       return;
     }
+    toaster({ text: 'Correo enviado, en unos minutos recibiras la guía en tu correo.', type: 'success' });
     
     //hacer una llamada post añadiendo el email a la url "https://malierlite-api.onrender.com/subscribers/${email}"
     fetch(`https://malierlite-api.onrender.com/subscribers/${email}`, {
@@ -48,6 +67,7 @@ export default (props) => {
     
 
   };
+
   const modal1 =
     <Dialog.Root className="fixed inset-0 z-10 overflow-y-auto">
       <Dialog.Trigger className=" px-6 py-3 rounded-full outline-none  overflow-hidden border duration-300 ease-linear
@@ -247,6 +267,7 @@ export default (props) => {
 
   return (
     <>
+    <ToastContainer />
       {tipo == 1 ? modal1 : tipo == 2 ? modal2 : tipo == 3 ? modal3 : null}
     </>
   );
