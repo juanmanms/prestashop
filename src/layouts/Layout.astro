@@ -1,6 +1,7 @@
 ---
 import Footer from "../components/elements/Footer.astro";
 import Navbar from "../components/elements/Navbar.astro";
+import GoogleAnalytics from "../components/shared/GoogleAnalytics.astro";
 
 export interface Props {
   title: string;
@@ -13,6 +14,8 @@ const { title, description } = Astro.props;
 <!doctype html>
 <html lang="es">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <GoogleAnalytics />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -23,21 +26,7 @@ const { title, description } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Google tag (gtag.js) -->
-    <script 
-      type="text/partytown"
-      async 
-      src="https://www.googletagmanager.com/gtag/js?id=G-GG4NNEWDBD"
-    ></script>
-    <script type="text/partytown">
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-GG4NNEWDBD");
-    </script>
+    
   </head>
   <body class="overflow-hidden overflow-y-auto bg-body">
     <Navbar />
